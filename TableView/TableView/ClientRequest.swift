@@ -1,11 +1,3 @@
-//
-//  ClientRequest.swift
-//  TableView
-//
-//  Created by Ronak Patel on 19/02/20.
-//  Copyright © 2020 Ronak Patel. All rights reserved.
-//
-
 import Foundation
 
 class ClientRequest : Codable {
@@ -20,7 +12,6 @@ class ClientRequest : Codable {
             var request = URLRequest(url: url)
             if  let resParam = params {
                 let data1 = try! JSONSerialization.data(withJSONObject: resParam, options: JSONSerialization.WritingOptions.prettyPrinted)
-                //print("JSONSerialization\(data1)")
                 let dataString = String(data: data1, encoding: .utf8)
 
                 request.httpBody = data1
@@ -28,7 +19,6 @@ class ClientRequest : Codable {
             request.httpMethod = method.rawValue
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             URLSession.shared.dataTask(with: request, completionHandler: { (data , response , error) in
-           //     print("URLSession data \(data)")
                 if let  resData = data{
                     if let responseData = response as? HTTPURLResponse {
                         print(responseData.statusCode)
