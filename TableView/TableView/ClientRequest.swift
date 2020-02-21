@@ -40,3 +40,10 @@ class ClientRequest : Codable {
     }
 }
 
+
+
+//suppose if we want to store any token receieved after login then. 
+//Store it using User default:  UserDefaults.standard.set(self.authtoken, forKey: "access-token")
+//And then add bellow shown lines in ClientRequest class.
+// let token  = UserDefaults.standard.string(forKey: "access-token")
+//  request.setValue(token, forHTTPHeaderField: "auth-token")
