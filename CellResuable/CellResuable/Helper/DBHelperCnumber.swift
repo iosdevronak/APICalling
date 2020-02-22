@@ -122,4 +122,37 @@ class DBHelperCnumber {
         }
         sqlite3_finalize(deleteStatement)
     }
+    
+    
+        func update(id:Int, number:String)
+    {
+        let contacts = read()
+        for c in contacts
+        {
+            if c.Id == id
+            {
+                print(id)
+               // let updateStatementString = "UPDATE Contact SET Name = 'Adam' WHERE Id = 1;"
+              let update = "UPDATE contact_number SET number = ? where Id = id"
+            //    let insertStatementString = "INSERT INTO contact_number (Id, number) VALUES (NULL, ?);"
+                var updateStatement: OpaquePointer? = nil
+                if sqlite3_prepare_v2(db, update, -1, &updateStatement, nil) == SQLITE_OK {
+                    sqlite3_bind_text(updateStatement, 1, (number as NSString).utf8String, -1, nil)
+                  //  sqlite3_bind_text(insertStatement, 2, (name as NSString).utf8String , -1,nil)
+
+                    if sqlite3_step(updateStatement) == SQLITE_DONE {
+                        print("Successfully updated row.")
+                    } else {
+                        print("Could not update row.")
+                    }
+                } else {
+                    print("UPDATE statement could not be prepared.")
+                }
+                sqlite3_finalize(updateStatement)
+            }
+        }
+        
+    }
+    
+    
 }
