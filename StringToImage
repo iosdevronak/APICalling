@@ -1,0 +1,22 @@
+
+//Userprofile is the image in string and userProfileImage is image object
+userprofile.convertStringToImage{
+            image in
+            DispatchQueue.main.async {
+                self.userProfileImage.image = image
+            }
+        }
+
+
+extension String {
+    func convertStringToImage(_ handler: @escaping ((UIImage?)->())) {
+        if let url = URL(string: self) {
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let data = data {
+                    let image = UIImage(data: data)
+                    handler(image)
+                }
+            }.resume()
+        }
+    }
+}
